@@ -27,7 +27,7 @@
 -  Arduino - в разработке
 -  ESP-IDF - в разработке
 
-## Уникальные бибилеотки для RaCEboards
+## Уникальные библиотеки для RaCEboards
 -  ``lib/CircuitPython`` для CircuitPython
 -  Arduino - в разработке
 -  ESP-IDF - в разработке
