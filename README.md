@@ -7,7 +7,7 @@
 
 ## Технические характеристики
 + MCU: ESP32-S3.
-+ Программирование на [CircuitPython](https://github.com/adafruit/circuitpython), [Arduino](https://github.com/espressif/arduino-esp32),  [ESP-IDF](https://github.com/espressif/esp-idf).
++ Программирование на [CircuitPython](https://github.com/adafruit/circuitpython), [Arduino](https://github.com/espressif/arduino-esp32), [ESP-IDF](https://github.com/espressif/esp-idf), [MircoBlocks](https://microblocks.fun/).
 + Барометр: BMP280.
 + Акселерометр и гироскоп: LSM6DSL.
 + Магнитометр: QMC5883L.
@@ -23,14 +23,16 @@
 
 ## Примеры
 Примеры использования различной перефиерии **RaCEboards**:
--  ``examples/CircuitPython`` для CircuitPython
+-  ``examples/v0.x/CircuitPython`` для CircuitPython 
+-  ``examples/v0.x/ESP_IDF`` для ESP-IDF
+-  ``examples/v0.x/MicroBlock`` для MicroBlocks
 -  Arduino - в разработке
--  ESP-IDF - в разработке
 
 ## Уникальные библиотеки для RaCEboards
--  ``lib/CircuitPython`` для CircuitPython
+-  ``lib/v0.x/CircuitPython`` для CircuitPython 
+-  ``lib/v0.x/ESP_IDF`` для ESP-IDF
+-  ``lib/v0.x/MicroBlock`` для MicroBlocks
 -  Arduino - в разработке
--  ESP-IDF - в разработке
 
 ## Обучающие уроки
 Конкретно для **RaCEboards** уроки есть тут - [RaCEboard wiki](https://raceboards.notion.site/b904a8853876489b9a182e0184369974?v=f337b6ecd4494e199e3b007a1e0e9fd5)
