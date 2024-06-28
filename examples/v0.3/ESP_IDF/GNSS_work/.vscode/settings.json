@@ -1,0 +1,32 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "files.associations": {
+    "sdkconfig.h": "c",
+    "m_gnss.h": "c",
+    "freertos.h": "c",
+    "tinygps++.h": "c",
+    "gpio.h": "c",
+    "task.h": "c",
+    "cstddef": "cpp",
+    "chrono": "c",
+    "xlocale": "c",
+    "xstring": "c",
+    "vector": "c",
+    "xutility": "c",
+    "utility": "c",
+    "algorithm": "c",
+    "xiosbase": "c",
+    "regex": "c",
+    "sstream": "c",
+    "ostream": "c",
+    "future": "c",
+    "format": "c",
+    "thread": "c"
+  },
+  "idf.adapterTargetName": "esp32s3",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.portWin": "COM33",
+  "idf.flashType": "UART"
+}

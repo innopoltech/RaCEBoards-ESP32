@@ -1,0 +1,21 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "files.associations": {
+    "sdkconfig.h": "c",
+    "esp_log.h": "c",
+    "adc_cali.h": "c",
+    "adc_cali_interface.h": "c",
+    "adc.h": "c",
+    "freertos.h": "c",
+    "adc_oneshot.h": "c",
+    "adc_cali_scheme.h": "c",
+    "gpio.h": "c",
+    "task.h": "c"
+  },
+  "idf.adapterTargetName": "esp32s3",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.portWin": "COM36",
+  "idf.flashType": "UART"
+}

@@ -1,0 +1,15 @@
+module Barometer
+author INNOPOL
+version 0 1 
+description 'Barometer integrated in the MEMS board (BMP280)'
+
+  spec 'r' 'baro_getPressure' 'baro_getPressure'
+  spec 'r' 'baro_getTemperature' 'baro_getTemperature'
+
+to baro_getPressure {
+	return ('[sensors:baroPressure]')
+}
+
+to baro_getTemperature {
+	return ('[sensors:baroTemperature]')
+}

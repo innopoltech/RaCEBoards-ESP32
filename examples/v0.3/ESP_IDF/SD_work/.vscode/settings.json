@@ -1,0 +1,28 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "files.associations": {
+    "sdkconfig.h": "c",
+    "esp_vfs_fat.h": "c",
+    "sdmmc_cmd.h": "c",
+    "stddef.h": "c",
+    "string.h": "c",
+    "unistd.h": "c",
+    "esp_log.h": "c",
+    "timers.h": "c",
+    "gpio.h": "c",
+    "freertos.h": "c",
+    "m_spi_thread.h": "c",
+    "m_sd_card.h": "c",
+    "esp_timer.h": "c",
+    "stat.h": "c",
+    "esp_err.h": "c",
+    "chrono": "c",
+    "utility": "c"
+  },
+  "idf.adapterTargetName": "esp32s3",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.portWin": "COM33",
+  "idf.flashType": "UART"
+}
