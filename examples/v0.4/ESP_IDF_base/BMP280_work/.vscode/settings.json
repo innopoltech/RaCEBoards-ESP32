@@ -1,0 +1,41 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "files.associations": {
+    "sdkconfig.h": "c",
+    "task.h": "c",
+    "stdint.h": "c",
+    "m_bmp280.h": "c",
+    "esp_log.h": "c",
+    "inttypes.h": "c",
+    "m_i2c_thread.h": "c",
+    "esp_err.h": "c",
+    "stdbool.h": "c",
+    "freertos.h": "c",
+    "gpio.h": "c",
+    "clk_tree_defs.h": "c",
+    "i2c.h": "c",
+    "array": "c",
+    "string": "c",
+    "string_view": "c",
+    "*.tcc": "c",
+    "ratio": "c",
+    "system_error": "c",
+    "functional": "c",
+    "regex": "c",
+    "tuple": "c",
+    "type_traits": "c",
+    "utility": "c",
+    "algorithm": "c",
+    "chrono": "c",
+    "optional": "c",
+    "xlocmon": "c",
+    "xtr1common": "c",
+    "xutility": "c"
+  },
+  "idf.adapterTargetName": "esp32s3",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.portWin": "COM18",
+  "idf.flashType": "UART"
+}

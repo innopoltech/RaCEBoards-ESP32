@@ -1,0 +1,20 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "files.associations": {
+    "sdkconfig.h": "c",
+    "esp_log.h": "c",
+    "adc_cali.h": "c",
+    "adc_cali_scheme.h": "c",
+    "freertos.h": "c",
+    "event_groups.h": "c",
+    "string.h": "c",
+    "m_wifi_low.h": "c",
+    "task.h": "c"
+  },
+  "idf.adapterTargetName": "esp32s3",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.portWin": "COM18",
+  "idf.flashType": "UART"
+}

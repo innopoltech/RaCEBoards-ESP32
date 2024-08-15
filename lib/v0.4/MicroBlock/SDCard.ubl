@@ -1,0 +1,21 @@
+module SDCard
+author INNOPOL
+version 0 1 
+description 'SDCard integrated in the MCU board (MME type)'
+
+  spec ' ' 'sdcard_ClearLog' 'sdcard_ClearLog'
+  spec ' ' 'sdcard_NexLine' 'sdcard_NexLine'
+  spec 'r' 'sdcard_Write' 'sdcard_Write _' 'str' 'text'
+
+to sdcard_ClearLog {
+  '[sensors:sdcardClearLog]'
+}
+
+to sdcard_NexLine {
+  '[sensors:sdcardNextLine]'
+}
+
+to sdcard_Write msg {
+  return ('[sensors:sdcardLogString]' msg)
+}
+
