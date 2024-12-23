@@ -1,0 +1,272 @@
+module main
+author unknown
+version 1 0 
+description ''
+
+  spec ' ' '565' '565'
+
+to '565' {
+  return ('[data:join]' '12' '45')
+}
+
+script 85 66 {
+whenStarted
+comment 'Проверка карты памяти'
+if false {
+  comment 'Пин 7 на высокий, это deselect радио'
+  digitalWriteOp 7 true
+  local 'hello' 'Hello !'
+  local 'i' 0
+  local 'msg' ''
+  sdcard_ClearLog
+  forever {
+    msg = ('[data:join]' hello ' ' ('[data:convertType]' i 'string'))
+    sayIt msg (sdcard_Write msg)
+    sdcard_NexLine
+    waitMillis 500
+    i += 1
+  }
+}
+}
+
+script 66 730 {
+whenStarted
+comment 'Эхо по usb-uart (дальний от кнопки)'
+if false {
+  local 'prepare_buffer' 0
+  local 'additional_buffer' 0
+  local 'full_buffer' 0
+  '[serial:open]' 115200
+  repeatUntil (not false) {
+    prepare_buffer = ('[data:convertType]' ('[serial:read]') 'string')
+    if ((size prepare_buffer) != 0) {
+      waitMillis 50
+      additional_buffer = ('[data:convertType]' ('[serial:read]') 'string')
+      full_buffer = ('[data:join]' prepare_buffer additional_buffer)
+      sayIt full_buffer
+      '[serial:write]' full_buffer
+    }
+    waitMillis 10
+  }
+  '[serial:close]'
+}
+}
+
+script 680 736 {
+whenStarted
+comment 'I2C скан'
+if false {
+  local 'list' 'Found dev : '
+  local 'i' 0
+  repeat 128 {
+    sayIt 'Scan addr' i
+    if ('[sensors:i2cExists]' i) {
+      list = ('[data:join]' list (num2str i) '; ')
+    }
+    i += 1
+  }
+  if ((size list) != 0) {
+    sayIt list
+  } else {
+    sayIt 'No device found!'
+  }
+  waitMillis 5000
+}
+}
+
+script 681 1520 {
+whenStarted
+comment 'SPI пример чтения регистора с RA-01SC'
+comment 'Читается регистр syncword ожидаемое значение 0x3444 | 0x1424'
+if else {
+  comment 'Всегда необходимо поднять линии CS для карты и радио'
+  digitalWriteOp 15 true
+  digitalWriteOp 7 true
+  local 'cs_pin' 7
+  local 'reg' 1856
+  local 'cmd' ('[data:asByteArray]' ('[data:makeList]' 29 ((reg >> 8) & 255) (reg & 255) 0))
+  local 'expected' ('[data:makeList]' 13380 5156)
+  local 'ret' ('[data:makeList]')
+  '[sensors:spiSetup]' 1000000 0
+  digitalWriteOp cs_pin false
+  '[sensors:spiExchange]' cmd
+  '[data:addLast]' (spiRecv) ret
+  '[data:addLast]' (spiRecv) ret
+  digitalWriteOp cs_pin true
+  local 'sync_word' (((at 1 ret) << 8) | (at 2 ret))
+  if (sync_word != 0) {
+    for i (size expected) {
+      if (sync_word == (at i expected)) {sayIt 'Syncword matched. All right. ' sync_word}
+    }
+  } else {
+    sayIt 'Error while read or syncword dont math!' (at 1 ret) (at 2 ret)
+  }
+  waitMillis 5000
+}
+}
+
+script 66 1521 {
+whenStarted
+comment 'I2C пример чтения регистора с BMP280'
+comment 'Читается регистр ID ожидаемое значение 0x58 | 0x60'
+if else {
+  local 'bmp_addr' 118
+  local 'reg' 208
+  local 'ret' 0
+  local 'expected' ('[data:makeList]' 88 96)
+  ret = (i2cGet bmp_addr reg)
+  if (ret != 0) {
+    for i (size expected) {
+      if (ret == (at i expected)) {sayIt 'IDs matched. All right. ' ret}
+    }
+  } else {
+    sayIt 'Error while read or id dont math!' ret
+  }
+  waitMillis 5000
+}
+}
+
+
+module SDCard
+author INNOPOL
+version 0 1 
+description 'SDCard integrated in the MCU board (MME type)'
+
+  spec ' ' 'sdcard_ClearLog' 'sdcard_ClearLog'
+  spec ' ' 'sdcard_NexLine' 'sdcard_NexLine'
+  spec 'r' 'sdcard_Write' 'sdcard_Write _' 'str' 'text'
+
+to sdcard_ClearLog {
+  '[sensors:sdcardClearLog]'
+}
+
+to sdcard_NexLine {
+  '[sensors:sdcardNextLine]'
+}
+
+to sdcard_Write msg {
+  return ('[sensors:sdcardLogString]' msg)
+}
+
+
+module Strings Data
+author MicroBlocks
+version 1 5 
+description 'String operations.'
+
+  spec 'r' 'isDigit' '_ is a digit' 'str' '5'
+  spec 'r' 'isLowercase' '_ is lowercase' 'str' 'A'
+  spec 'r' 'isUppercase' '_ is uppercase' 'str' 'E'
+  space
+  spec 'r' 'beginsWith' '_ begins with _' 'str str' 'prefix' 'pre'
+  spec 'r' 'endsWith' '_ ends with _' 'str str' 'suffix' 'fix'
+  spec 'r' 'contains' '_ contains _' 'str str' 'smiles' 'mile'
+  space
+  spec 'r' 'lowercase' 'lowercase _' 'str' 'THIS is a String! :)'
+  spec 'r' 'uppercase' 'uppercase _' 'str' 'Hello, world!'
+  spec 'r' 'withoutWhiteSpace' '_ without white space' 'str' '1, 2,	3,
+4'
+  space
+  spec 'r' 'joinWith' 'join string list _ separator _' 'auto str' ' ' ' '
+  spec 'r' 'stringToUnicodes' 'unicodes _' 'auto' 'aString'
+  spec 'r' 'unicodesToString' 'string from unicodes _' 'auto' 'aList'
+  space
+  spec 'r' 'num2str' 'num2str _' 'auto' 42
+  spec 'r' 'str2num' 'str2num _' 'str' '123'
+
+to beginsWith string substring {
+  return (('[data:find]' substring string) == 1)
+}
+
+to contains string substring {
+  return (('[data:find]' substring string) > 0)
+}
+
+to endsWith string substring {
+  return (('[data:find]' substring string) > ((size string) - (size substring)))
+}
+
+to isDigit char {
+  local 'unicode' ('[data:unicodeAt]' 1 char)
+  return (and (unicode >= 48) (unicode <= 57))
+}
+
+to isLowercase char {
+  local 'unicode' ('[data:unicodeAt]' 1 char)
+  return (and (unicode >= 97) (unicode <= 122))
+}
+
+to isUppercase char {
+  local 'unicode' ('[data:unicodeAt]' 1 char)
+  return (and (unicode >= 65) (unicode <= 90))
+}
+
+to joinWith stringList separator {
+  if (not (isType stringList 'list')) {return ('[data:join]' '' stringList)}
+  if (or ((pushArgCount) == 1) (separator == '')) {return ('[data:joinStrings]' stringList)}
+  local 'result' (newList (2 * (size stringList)))
+  '[data:delete]' 'all' result
+  for s stringList {
+    '[data:addLast]' s result
+    '[data:addLast]' separator result
+  }
+  '[data:delete]' 'last' result
+  return ('[data:joinStrings]' result)
+}
+
+to lowercase string {
+  local 'new string' ''
+  for i (size string) {
+    if (isUppercase (at i string)) {
+      'new string' = ('[data:join]' (v 'new string') ('[data:unicodeString]' (('[data:unicodeAt]' i string) + 32)))
+    } else {
+      'new string' = ('[data:join]' (v 'new string') (at i string))
+    }
+  }
+  return (v 'new string')
+}
+
+to num2str n {
+  return ('[data:join]' '' n)
+}
+
+to str2num s {
+  return (0 + s)
+}
+
+to stringToUnicodes s {
+  local 'result' (newList (size s))
+  for i (size s) {
+    atPut i result ('[data:unicodeAt]' i s)
+  }
+  return result
+}
+
+to unicodesToString aList {
+  return ('[data:unicodeString]' aList)
+}
+
+to uppercase string {
+  local 'new string' ''
+  for i (size string) {
+    if (isLowercase (at i string)) {
+      'new string' = ('[data:join]' (v 'new string') ('[data:unicodeString]' (('[data:unicodeAt]' i string) - 32)))
+    } else {
+      'new string' = ('[data:join]' (v 'new string') (at i string))
+    }
+  }
+  return (v 'new string')
+}
+
+to withoutWhiteSpace aString {
+  local 'result' (newList (size aString))
+  '[data:delete]' 'all' result
+  for i (size aString) {
+    local 'ch' ('[data:unicodeAt]' i aString)
+    if (ch > 32) {
+      '[data:addLast]' ch result
+    }
+  }
+  return ('[data:unicodeString]' result)
+}
+

@@ -1,0 +1,148 @@
+module FMath
+author INNOPOL
+version 0 1 
+description 'Float-point math lib'
+
+  spec 'r' '[misc:String2Float]' 'str2float _' 'str' '0'
+  spec 'r' '[misc:Int2Float]'    'int2float _' 'auto' 0
+  spec 'r' '[misc:Float2Int]'    'float2int _' 'str' '0'
+  spec 'r' '[misc:Float2String]' 'float2str _' 'str' '0'
+  space
+  spec 'r' 'FloatSum' 'f _ + _ ' 'str str' '10.0' '2.0'
+  spec 'r' 'FloatSub' 'f _ - _ ' 'str str' '10.0' '2.0'
+  spec 'r' 'FloatMul' 'f _ * _ ' 'str str' '10.0' '2.0'
+  spec 'r' 'FloatDiv' 'f _ / _ ' 'str str' '10.0' '2.0'
+  space
+  spec 'r' 'FloatLE'        'f _ < _ '  'str str' '3.0' '4.0'
+  spec 'r' 'FloatLEorEQ'    'f _ <= _ ' 'str str' '3.0' '4.0'
+  spec 'r' 'FloatEQ'        'f _ = _ '  'str str' '3.0' '4.0'
+  spec 'r' 'FloatnoEQ'      'f _ != _ ' 'str str' '3.0' '4.0'
+  spec 'r' 'FloatGE'        'f _ > _ '  'str str' '3.0' '4.0'
+  spec 'r' 'FloatGEorEQ'    'f _ >= _ ' 'str str' '3.0' '4.0'
+  space
+  spec 'r' 'FloatRad2deg' 	'f rad2deg _  ' 'str' '3.14'
+  spec 'r' 'FloatDeg2rad' 	'f deg2rad _  ' 'str' '180'
+  spec 'r' 'FloatLn' 	      'f ln _ ' 		  'str' '1.1'
+  spec 'r' 'FloatLog_10'    'f log_10 _ ' 	'str' '1.1'
+  spec 'r' 'FloatExp' 	    'f exp _ ' 			'str' '1.1'
+  spec 'r' 'FloatPow2' 	    'f pow2 _ ' 		'str' '1.1'
+  spec 'r' 'FloatSqrt' 	    'f sqrt _ ' 		'str' '1.1'
+  spec 'r' 'FloatSin' 	    'f sin _ ' 			'str' '1.1'
+  spec 'r' 'FloatCos' 	    'f cos _ ' 			'str' '1.1'
+  spec 'r' 'FloatTan' 	    'f tan _ '			'str' '1.1'
+  spec 'r' 'FloatAsin' 	    'f asin _ ' 		'str' '1.1'
+  spec 'r' 'FloatAcos' 	    'f acos _ ' 		'str' '1.1'
+  spec 'r' 'FloatAtan' 	    'f atan _ ' 		'str' '1.1'
+  space
+  spec 'r' 'FloatLog_x' 	'f log_x _ base _' 	'str str' '256' '2'
+  spec 'r' 'FloatPow_x' 	'f pow_x _ to _'	  'str str' '16' '2'
+  spec 'r' 'FloatSqrt_x' 	'f sqrt _ from _' 	'str str' '256' '4'
+
+to FloatSum val1 val2 {
+  return ('[misc:FloatABase]' 0 val1 val2)
+}
+
+to FloatSub val1 val2 {
+  return ('[misc:FloatABase]' 1 val1 val2)
+}
+
+to FloatMul val1 val2 {
+  return ('[misc:FloatABase]' 2 val1 val2)
+}
+
+to FloatDiv val1 val2 {
+  return ('[misc:FloatABase]' 3 val1 val2)
+}
+
+
+to FloatLE val1 val2 {
+  return ('[misc:FloatCBase]' 0 val1 val2)
+}
+
+to FloatLEorEQ val1 val2 {
+  return ('[misc:FloatCBase]' 1 val1 val2)
+}
+
+to FloatEQ val1 val2 {
+  return ('[misc:FloatCBase]' 2 val1 val2)
+}
+
+to FloatnoEQ val1 val2 {
+  return ('[misc:FloatCBase]' 3 val1 val2)
+}
+
+to FloatGE val1 val2 {
+  return ('[misc:FloatCBase]' 4 val1 val2)
+}
+
+to FloatGEorEQ val1 val2 {
+  return ('[misc:FloatCBase]' 5 val1 val2)
+}
+
+
+
+to FloatRad2deg val1 {
+  return ('[misc:FloatASAdv]' 0 val1)
+}
+
+to FloatDeg2rad val1 {
+  return ('[misc:FloatASAdv]' 1 val1)
+}
+
+to FloatLn val1 {
+  return ('[misc:FloatASAdv]' 2 val1)
+}
+
+to FloatLog_10 val1 {
+  return ('[misc:FloatASAdv]' 3 val1)
+}
+
+to FloatExp val1 {
+  return ('[misc:FloatASAdv]' 4 val1)
+}
+
+to FloatPow2 val1 {
+  return ('[misc:FloatASAdv]' 5 val1)
+}
+
+to FloatSqrt val1 {
+  return ('[misc:FloatASAdv]' 6 val1)
+}
+
+to FloatSin val1 {
+  return ('[misc:FloatASAdv]' 7 val1)
+}
+
+to FloatCos val1 {
+  return ('[misc:FloatASAdv]' 8 val1)
+}
+
+to FloatTan val1 {
+  return ('[misc:FloatASAdv]' 9 val1)
+}
+
+to FloatAsin val1 {
+  return ('[misc:FloatASAdv]' 10 val1)
+}
+
+to FloatAcos val1 {
+  return ('[misc:FloatASAdv]' 11 val1)
+}
+
+to FloatAtan val1 {
+  return ('[misc:FloatASAdv]' 12 val1)
+}
+
+
+
+to FloatLog_x val1 val2 {
+  return ('[misc:FloatAMAdv]' 0 val1 val2)
+}
+
+to FloatPow_x val1 val2 {
+  return ('[misc:FloatAMAdv]' 1 val1 val2)
+}
+
+to FloatSqrt_x val1 val2 {
+  return ('[misc:FloatAMAdv]' 2 val1 val2)
+}

@@ -1,0 +1,34 @@
+module Wifi_m
+author INNOPOL
+version 0 2 
+description 'Connect to a WiFi network. Used in conjunction with other network libraries.'
+
+  spec ' ' 'wifiConnect' 'wifi connect to _ password _ softap _ ' 'str str bool' 'Network_Name' 'Password' false
+  spec 'r' 'getIPAddress' 'IP address'
+
+to getIPAddress {
+  return ('[net:myIPAddress]')
+}
+
+to wifiConnect ssid password softap {
+  if (not ('[net:hasWiFi]')) {return}
+  '[net:stopWiFi]'
+  waitMillis 2000
+  '[net:startWiFi]' ssid password softap
+  local 'startMSecs' (millisOp)
+  repeat 30 {
+    sayIt 'Try connect:' (((millisOp) - startMSecs) / 1000) '/ 30 sec'
+    if (((millisOp) - startMSecs) > 30000) {
+      sayIt 'Could not connect!'
+      return 0
+    }
+    if (('[net:myIPAddress]') != '0.0.0.0') {
+      sayIt 'Connected!'
+      waitMillis 2000
+      sayIt ('[net:myIPAddress]')
+      return 0
+    }
+    waitMillis 1100
+  }
+}
+

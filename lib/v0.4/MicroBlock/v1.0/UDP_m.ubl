@@ -1,0 +1,9 @@
+module UDP_m
+author INNOPOL
+version 0 2
+description 'Transmit/receive UDP packets.'
+
+  spec ' ' '[net:udpStart]' 'UDP RX start port _' 'auto' 5000
+  spec ' ' '[net:udpStop]' 'UDP stop'
+  spec 'r' '[net:udpReceivePacket]' 'UDP receive packet _ ' 'auto' 'list'
+  spec ' ' '[net:udpSendPacket]' 	'UDP transmit packet _ ip _ port _ : use_rx_address _ : override_rx_port _' 'auto str num bool bool' 0 '192.168.0.1' 5000 false false

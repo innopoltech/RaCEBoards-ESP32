@@ -1,0 +1,27 @@
+module MUX_and_IO
+author INNOPOL
+version 0 1 
+description 'MUX and IO integrated in the MEMS board (74HC4051PW/PCA9554)'
+
+  spec ' ' 'mux_selectLine' 'mux_selectLine _' 'num' 0
+  space
+  spec 'r' 'io_ReadPin' 'io_ReadPin _' 'num' 0
+  spec ' ' 'io_WritePin' 'io_WritePin _ to _' 'num bool' 0 true
+
+to io_ReadPin pin {
+  return ('[sensors:ioRead]' pin)
+}
+
+to io_WritePin pin val {
+  ('[sensors:ioWrite]' pin val)
+}
+
+to mux_selectLine line {
+  if (or (line < 0) (line > 7)) {
+    sayIt 'The line number must be between 0 and 7!'
+    waitMillis 1000
+    return -1
+  }
+  return ('[sensors:muxSetLine]' line)
+}
+

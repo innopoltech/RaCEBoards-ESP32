@@ -1,7 +1,7 @@
 import time
 import board
 from rainbowio import colorwheel
-import neopixel #Custom for RaCEBoard v0.4
+import neopixel
 
 ################################### Setup
 #Shared with LED

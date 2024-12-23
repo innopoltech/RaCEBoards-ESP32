@@ -1,0 +1,49 @@
+
+void test_rpc_phy_udp(rpc_phy_udp_context_t* rpc_phy_udp_context)
+{
+    while(1)
+    {   
+        rpc_phy_udp_update_rx_buffer(rpc_phy_udp_context);
+
+        uint8_t data;
+        if(rpc_phy_udp_read_byte(rpc_phy_udp_context, &data) == true)
+        {
+            rpc_phy_udp_write_bytes(rpc_phy_udp_context, &data, 1);
+            ESP_LOGI(TAG, "%c", (char)data);
+        }
+        vTaskDelay(1);
+    }
+}
+
+void test_function()
+{
+    uint8_t in_ = 72;
+    uint8_t* out_ptr = NULL;
+    uint16_t out_len = 0;
+
+    rpc_function_args_t args = 
+    {  
+        .data_in = &in_,
+        .data_out = (uint8_t**)&out_ptr,
+        .len_in = 1,
+        .len_out = &out_len,
+        .name = "ABC-09"
+    };
+
+    rpc_function_add("test_function_function", (void*)test_function_function);
+
+    int16_t indx = rpc_function_find("test_function_function");
+    if(indx>=0)
+    {
+        function_t fun = rpc_function_ptr_from_indx(indx);
+        fun(&args);
+
+        ESP_LOGI(TAG, "RET = %d", *((uint16_t*)(*args.data_out)) );
+    }
+    else
+    {
+        ESP_LOGI(TAG, "Function not found!");
+    }
+
+    rpc_function_delete("test_function_function");
+}

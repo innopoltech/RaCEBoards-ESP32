@@ -1,0 +1,100 @@
+module main
+author unknown
+version 1 0 
+description ''
+
+script 71 50 {
+whenStarted
+comment 'Подключение к WIFI сети'
+if false {
+  local 'ssid' 'INNOPOL'
+  local 'password' 'Azbuka1331'
+  wifiConnect ssid password false
+  waitMillis 2000
+  forever {
+    sayIt ('[net:myIPAddress]')
+    waitMillis 1000
+  }
+}
+}
+
+script 593 64 {
+whenStarted
+comment 'Создание UDP эхо сервера'
+comment 'IN - 5000, OUT - 5010'
+if false {
+  repeatUntil (('[net:myIPAddress]') != '0.0.0.0') {
+    sayIt 'Wait wifi connection...'
+    waitMillis 100
+  }
+  '[net:udpStart]' 5000
+  sayIt 'UDP server started! Wait data...'
+  local 'buff' ('[data:makeList]' 'data' 'ip' 'port')
+  local 'rx_data' 0
+  local 'rx_ip' 0
+  local 'rx_port' 0
+  forever {
+    if ('[net:udpReceivePacket]' buff) {
+      rx_data = ('[data:convertType]' (at 1 buff) 'string')
+      rx_ip = (at 2 buff)
+      rx_port = (at 3 buff)
+      sayIt 'RX -> ' rx_data 'ip-> ' rx_ip 'port-> ' rx_port
+      if true {
+        comment 'Ручное заполнение'
+        '[net:udpSendPacket]' rx_data rx_ip 5010
+      } else {
+        comment 'Отправка по адресу последнего входящего пакета'
+        '[net:udpSendPacket]' rx_data '0' 5010 true true
+      }
+    }
+    waitMillis 10
+  }
+}
+}
+
+
+module UDP_m
+author INNOPOL
+version 0 2 
+description 'Transmit/receive UDP packets.'
+
+  spec ' ' '[net:udpStart]' 'UDP RX start port _' 'auto' 5000
+  spec ' ' '[net:udpStop]' 'UDP stop'
+  spec 'r' '[net:udpReceivePacket]' 'UDP receive packet _' 'auto' 'list'
+  spec ' ' '[net:udpSendPacket]' 'UDP transmit packet _ ip _ port _ : use_rx_address _ : override_rx_port _' 'auto str num bool bool' 0 '192.168.0.1' 5000 false false
+
+module Wifi_m
+author INNOPOL
+version 0 2 
+description 'Connect to a WiFi network. Used in conjunction with other network libraries.
+'
+
+  spec ' ' 'wifiConnect' 'wifi connect to _ password _ softap _' 'str str bool' 'Network_Name' 'Password' false
+  spec 'r' 'getIPAddress' 'IP address'
+
+to getIPAddress {
+  return ('[net:myIPAddress]')
+}
+
+to wifiConnect ssid password softap {
+  if (not ('[net:hasWiFi]')) {return}
+  '[net:stopWiFi]'
+  waitMillis 2000
+  '[net:startWiFi]' ssid password softap
+  local 'startMSecs' (millisOp)
+  repeat 30 {
+    sayIt 'Try connect:' (((millisOp) - startMSecs) / 1000) '/ 30 sec'
+    if (((millisOp) - startMSecs) > 30000) {
+      sayIt 'Could not connect!'
+      return 0
+    }
+    if (('[net:myIPAddress]') != '0.0.0.0') {
+      sayIt 'Connected!'
+      waitMillis 2000
+      sayIt ('[net:myIPAddress]')
+      return 0
+    }
+    waitMillis 1100
+  }
+}
+

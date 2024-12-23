@@ -13,7 +13,7 @@ void app_main(void)
 {
     while(1)
     {
-        wifi_start_wifi_task();
+        wifi_start_wifi_task(PRO_CPU_NUM);
         wifi_connect_to_ap("", "");
 
         while(wifi_get_status() != WIFI_ACTIVE){vTaskDelay(100 / portTICK_PERIOD_MS);}

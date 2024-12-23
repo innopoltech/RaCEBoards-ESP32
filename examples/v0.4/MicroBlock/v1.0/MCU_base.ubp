@@ -1,0 +1,64 @@
+module main
+author unknown
+version 1 0 
+description ''
+variables freqq dir servo_angle temp 
+
+script 884 66 {
+whenStarted
+comment 'Встроенный таймер'
+if false {
+  resetTimer
+  forever {
+    sayIt (timer)
+    graphIt (timer)
+    waitMillis 500
+  }
+}
+}
+
+script 507 77 {
+whenStarted
+comment 'Текущее время'
+if false {
+  forever {
+    sayIt (millisOp) (microsOp)
+    waitMillis 100
+  }
+}
+}
+
+script 107 78 {
+whenStarted
+comment 'Состояние подключения'
+if false {
+  forever {
+    sayIt (boardType) ('[misc:connectedToIDE]')
+    waitMillis 100
+  }
+}
+}
+
+script 133 417 {
+whenStarted
+comment 'Моргалка'
+if false {
+  forever {
+    digitalWriteOp 8 false
+    waitMillis 50
+    digitalWriteOp 8 true
+    waitMillis 50
+  }
+}
+}
+
+script 529 438 {
+whenButtonPressed 'A'
+comment 'Проверка кнопки'
+if false {
+  setUserLED true
+  waitUntil (not (buttonA))
+  setUserLED false
+}
+}
+

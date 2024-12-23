@@ -1,0 +1,139 @@
+module main
+author unknown
+version 1 0 
+description ''
+variables freqq dir servo_angle temp 
+
+script 560 66 {
+whenStarted
+comment 'Проверка gnss'
+if false {
+  local 'raw' '0'
+  local 'lat_lon' '0'
+  local 'has_fix' 0
+  local 'alt' 0
+  local 'numsat' 0
+  forever {
+    has_fix = (gnss_GetHasFix)
+    if (not has_fix) {
+      sayIt has_fix (gnss_GetRaw)
+    } else {
+      lat_lon = (gnss_GetLatLon)
+      alt = (gnss_GetHeight)
+      numsat = (gnss_GetNumsat)
+      sayIt lat_lon alt numsat
+    }
+    waitMillis 100
+  }
+}
+}
+
+script 120 81 {
+whenStarted
+comment 'Без этого GNSS не будет работать'
+if false {
+  forever {
+    gnss_Update
+  }
+}
+}
+
+script 509 801 {
+whenStarted
+comment 'Проверка радио приема'
+if false {
+  local 'msg' '0'
+  radio_setChannel 1
+  radio_setPower false
+  forever {
+    if (radio_hasRX) {
+      msg = (radio_rxString)
+      sayIt msg
+    }
+    waitMillis 10
+  }
+}
+}
+
+script 120 802 {
+whenStarted
+comment 'Проверка радио передачи'
+if false {
+  radio_setChannel 1
+  radio_setPower false
+  forever {
+    radio_txString 'nyaaa...' true
+    waitMillis 100
+  }
+}
+}
+
+
+module GNSS
+author INNOPOL
+version 0 1 
+description 'GNSSS integrated in the RF-GNSS board (L86-M33_1)'
+
+  spec 'r' 'gnss_GetHasFix' 'gnss_GetHasFix'
+  spec 'r' 'gnss_GetHeight' 'gnss_GetHeight'
+  spec 'r' 'gnss_GetLatLon' 'gnss_GetLatLon'
+  spec 'r' 'gnss_GetNumsat' 'gnss_GetNumsat'
+  spec 'r' 'gnss_GetRaw' 'gnss_GetRaw'
+  spec ' ' 'gnss_Update' 'gnss_Update'
+
+to gnss_GetHasFix {
+  return ('[sensors:gnssHasFix]')
+}
+
+to gnss_GetHeight {
+  return ('[sensors:gnssHeight]')
+}
+
+to gnss_GetLatLon {
+  return ('[sensors:gnssLatLon]')
+}
+
+to gnss_GetNumsat {
+  return ('[sensors:gnssNumSat]')
+}
+
+to gnss_GetRaw {
+  return ('[sensors:gnssGetRaw]')
+}
+
+to gnss_Update {
+  return ('[sensors:gnssUpdate]')
+}
+
+
+module Radio_RA01S
+author INNOPOL
+version 0 1 
+description 'Radio integrated in the MEMS board (RA01S)'
+
+  spec ' ' 'radio_setChannel' 'radio_setChannel _' 'num' 1
+  spec ' ' 'radio_setPower' 'radio_setPower _' 'bool' false
+  spec 'r' 'radio_hasRX' 'radio_hasRX'
+  spec 'r' 'radio_rxString' 'radio_rxString'
+  spec ' ' 'radio_txString' 'radio_txString _ add_LF _' 'str bool' 'nyaa...' true
+
+to radio_hasRX {
+  return ('[sensors:radioHasRxString]')
+}
+
+to radio_rxString {
+  return ('[sensors:radioRxString]')
+}
+
+to radio_setChannel ch {
+  '[sensors:radioSetCh]' ch
+}
+
+to radio_setPower max_pwr {
+  '[sensors:radioSetPower]' max_pwr
+}
+
+to radio_txString msg next_line {
+  '[sensors:radioTxString]' msg next_line
+}
+

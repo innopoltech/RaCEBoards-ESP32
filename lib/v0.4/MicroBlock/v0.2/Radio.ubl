@@ -1,0 +1,31 @@
+module Radio_RA01S
+author INNOPOL
+version 0 1 
+description 'Radio integrated in the MEMS board (RA01S)'
+
+  spec ' ' 'radio_setChannel' 'radio_setChannel _' 'num' '1'
+  spec ' ' 'radio_setPower' 'radio_setPower _' 'bool' false
+  spec 'r' 'radio_hasRX' 'radio_hasRX'
+  spec 'r' 'radio_rxString' 'radio_rxString' 
+  spec ' ' 'radio_txString' 'radio_txString _ add_LF _' 'str bool' 'nyaa...' true
+
+
+to radio_setChannel ch {
+  '[sensors:radioSetCh]' ch
+}
+
+to radio_setPower max_pwr {
+  '[sensors:radioSetPower]' max_pwr
+}
+
+to radio_hasRX {
+  return ('[sensors:radioHasRxString]')
+}
+
+to radio_rxString {
+  return ('[sensors:radioRxString]')
+}
+
+to radio_txString msg next_line {
+  '[sensors:radioTxString]' msg next_line
+}

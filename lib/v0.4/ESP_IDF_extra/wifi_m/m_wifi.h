@@ -1,17 +1,18 @@
-
-#include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "esp_wifi.h"
 #include "esp_system.h"
+#include "esp_wifi.h"
+
+#include "freertos/queue.h"
 #include "esp_log.h"
+
+#include <string.h>
 
 #pragma once
 
 /*
     ! Only STA, not AP
 */ 
-
 
 typedef enum {
     WIFI_NOT_RUNNING = 0,        //Task not started
@@ -28,12 +29,14 @@ typedef struct
 } m_wifi_request;
 
 
-esp_err_t  wifi_start_wifi_task(void);
+esp_err_t  wifi_start_wifi_task(BaseType_t core);
 esp_err_t  wifi_stop_wifi_task(void);
 
 esp_err_t  wifi_connect_to_ap(char* ssid, char* password);
 esp_err_t  wifi_dissconnect_from_ap(void);
 
+esp_err_t  wifi_create_ap(char* ssid, char* password);
+esp_err_t  wifi_close_ap();
 
 m_wifi_state wifi_get_status(void);
 esp_ip4_addr_t wifi_get_ip(void);

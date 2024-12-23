@@ -1,0 +1,62 @@
+module Math
+author INNOPOL
+version 0 1 
+description 'Simple math library. Attention, trigonometric functions (sin,cos,tan) - take value in degrees and return x1000; trigonometric functions (asin,acos,atan) - take value x1000 and return in degrees.  '
+  spec 'r' 'log_x' 	'log_x _ base _' 	'num num' 0 0
+  spec 'r' 'ln' 	'ln _' 				'num' 0
+  spec 'r' 'log_10' 'log_10 _' 			'num' 0
+  spec 'r' 'exp' 	'exp _' 			'num' 0
+  spec 'r' 'sqrt' 	'sqrt _' 			'num' 0
+  spec 'r' 'sin' 	'sin _' 			'num' 0
+  spec 'r' 'cos' 	'cos _' 			'num' 0
+  spec 'r' 'tan' 	'tan _'				'num' 0
+  spec 'r' 'asin' 	'asin _' 			'num' 0
+  spec 'r' 'acos' 	'acos _' 			'num' 0
+  spec 'r' 'atan' 	'atan _' 			'num' 0
+
+to log_x x foo {
+	return ('[nonperf:log_x]' x foo)
+}
+
+to ln x {
+	return ('[nonperf:ln]' x)
+}
+
+to log_10 x {
+	return ('[nonperf:log10]' x)
+}
+
+to exp x {
+	return ('[nonperf:exp]' x)
+}
+
+to sqrt x {
+	return ('[nonperf:sqrt]' x)
+}
+
+to sin x {
+	return ('[nonperf:sin]' x)
+}
+
+to cos x {
+	return ('[nonperf:cos]' x)
+}
+
+to tan x {
+	return ('[nonperf:tan]' x)
+}
+
+to asin x {
+	return ('[nonperf:asin]' x)
+}
+
+to acos x {
+	return ('[nonperf:acos]' x)
+}
+
+to atan x {
+	return ('[nonperf:atan]' x)
+}
+
+
+

@@ -17,13 +17,22 @@
     "err.h": "c",
     "algorithm": "c",
     "chrono": "c",
-    "xutility": "c"
+    "xutility": "c",
+    "regex": "c",
+    "xlocale": "c",
+    "xstring": "c",
+    "array": "c",
+    "vector": "c",
+    "esp_event.h": "c",
+    "sockets.h": "c",
+    "m_wifi.h": "c",
+    "esp_system.h": "c"
   },
   "idf.adapterTargetName": "esp32s3",
   "idf.openOcdConfigs": [
     "board/esp32s3-builtin.cfg"
   ],
-  "idf.portWin": "COM18",
+  "idf.portWin": "COM33",
   "idf.flashType": "UART",
   "cmake.configureOnOpen": false
 }

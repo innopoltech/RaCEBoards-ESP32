@@ -177,8 +177,4 @@ class NeoPixel(adafruit_pixelbuf.PixelBuf):
         self.show()
 
     def _transmit(self, buffer: bytearray) -> None:
-        #RaCEBoard V0.4 requires byte inversion
-        buffer_ = bytearray(buffer)
-        for i in range(len(buffer_)):
-            buffer_[i] = 255-buffer_[i]
-        neopixel_write(self.pin, buffer_)
+        neopixel_write(self.pin, buffer)

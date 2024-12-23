@@ -9,12 +9,16 @@
     "event_groups.h": "c",
     "string.h": "c",
     "m_wifi_low.h": "c",
-    "task.h": "c"
+    "task.h": "c",
+    "m_wifi.h": "c",
+    "esp_wifi.h": "c",
+    "queue.h": "c",
+    "esp_event.h": "c"
   },
   "idf.adapterTargetName": "esp32s3",
   "idf.openOcdConfigs": [
     "board/esp32s3-builtin.cfg"
   ],
-  "idf.portWin": "COM18",
+  "idf.portWin": "COM33",
   "idf.flashType": "UART"
 }
