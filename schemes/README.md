@@ -1,3 +1,3 @@
-# RaCEBoard-ESP32 schemes
-В данном разделе находятся все схемы необходимые для самостоятельной работы с электронным конструктором.
+# RaCEBoard-ESP32 Hardware Designs
+This section contains all the schematics required for independent work with the electronic development board.
  
