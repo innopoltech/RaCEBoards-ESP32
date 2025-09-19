@@ -1,3 +1,3 @@
-# RaCEBoard-ESP32 schemes
-Онлайн интсрумент для прошивки .bin файлов - https://adafruit.github.io/Adafruit_WebSerial_ESPTool/
+# RaCEBoard-ESP32 src
+Online tool for flashing `.bin` files: [https://adafruit.github.io/Adafruit_WebSerial_ESPTool/](https://adafruit.github.io/Adafruit_WebSerial_ESPTool/)
  
